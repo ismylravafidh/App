@@ -1,0 +1,43 @@
+﻿@model List<Blog>
+@{
+	int count = 0;
+}
+<div class="container">
+	<div class="d-flex" style="justify-content:space-between;align-items:center">
+		<h1>Blogs</h1>
+		<a class="btn btn-primary" asp-controller="Blog" asp-action="Create">Create</a>
+
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">No#</th>
+				<th scope="col">Id</th>
+				<th scope="col">Blog Name</th>
+				<th scope="col">Blog Description</th>
+				<th scope="col">Image</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				count++;
+				<tr>
+					<th scope="row">@count</th>
+					<td>@item.Id</td>
+					<td>@item.BlogName</td>
+					<td>@(item.BlogDescription.Length > 10 ? item.BlogDescription.Substring(0, 10) : item.BlogDescription)</td>
+					<td>
+						<div style="width:100px">
+							<img width="100%" src="~/Upload/Image/@item.ImgUrl">
+						</div>
+					</td>
+					<td>
+						<a class="btn btn-secondary" asp-controller="Blog" asp-action="Update" asp-route-id="@item.Id">Update</a>
+						<a class="btn btn-danger" asp-controller="Blog" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
